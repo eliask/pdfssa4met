@@ -8,7 +8,7 @@ Created on Mar 1, 2010
 # this should have been downloaded from:
 # http://sourceforge.net/projects/pdf2xml/
 
-pdf2xmlexe = "~/install/bin/pdftoxml.linux.exe.1_2_4"
+pdf2xmlexe = "/usr/local/bin/pdftoxml.linux.exe.1_2_4"
 
 # API Key for OpenCalais Web Service
 # You'll need to register for one yourself at:

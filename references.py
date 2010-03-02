@@ -176,6 +176,10 @@ def main(argv=None):
         sys.stderr.write("for help use --help")
         sys.stderr.flush()
         return 2
+    except ConfigError, err:
+        sys.stderr.writelines([str(err.msg),'\n'])
+        sys.stderr.flush()
+        return 1
 
 if __name__ == '__main__':        
     sys.exit(main())

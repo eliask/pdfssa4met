@@ -16,7 +16,7 @@ OPTIONS:
 
 import sys, getopt
 from lxml import etree
-from utils import UsageError, mean, median
+from utils import UsageError, ConfigError, mean, median
 from pdf2xml import pdf2etree
 
 
@@ -34,16 +34,16 @@ def pdf2heads(opts, args):
             titleonly = True
         elif (o == '--author'):
             authonly = True
-            
-    tree = pdf2etree(args)
-    
+
+        tree = pdf2etree(args)
+
     # find title
     page = 1
     block = 1
     title_node = None
     while True:
         try: title_node = tree.xpath("//PAGE[{0}]//BLOCK[{1}]".format(page, block))[0]
-        except: page+=1
+        except IndexError: page+=1
         else: break
         if page > 2:
             # probably not going to find it now
@@ -55,7 +55,7 @@ def pdf2heads(opts, args):
     auth_node = None
     while True:
         try: auth_node  = tree.xpath("//PAGE[{0}]//BLOCK[{1}]".format(page, block))[0]
-        except: block+=1
+        except InbdexError: block+=1
         else: break
         if block > 4:
             # probably not going to find it now
@@ -133,10 +133,14 @@ def main(argv=None):
             
         pdf2heads(opts, args)
 
-    except UsageError, err:
-        sys.stderr.writelines([str(err.msg)+'\n', "for help use --help\n"])
-        sys.stderr.flush()
+    except UsageError as err:
+        print >>sys.stderr, err.msg
+        print >>sys.stderr, "for help use --help"
         return 2
+    except ConfigError, err:
+        sys.stderr.writelines([str(err.msg),'\n'])
+        sys.stderr.flush()
+        return 1
 
 if __name__ == '__main__':        
     sys.exit(main())
