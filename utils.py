@@ -4,7 +4,11 @@ Created on Mar 1, 2010
 @author: John Harrison
 """
 
-class Usage(Exception):
+class ConfigError(Exception):
+    def __init__(self, msg):
+        self.msg = msg
+
+class UsageError(Exception):
     def __init__(self, msg):
         self.msg = msg
 

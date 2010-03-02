@@ -11,7 +11,7 @@ OPTIONS:
 
 import sys, getopt, commands
 from lxml import etree
-from utils import Usage
+from utils import UsageError, ConfigError
 from config import OpenCalais_API_Key as api_key
 from pdf2xml import pdf2etree
 from openCalais import OpenCalaisService
@@ -42,15 +42,13 @@ def main(argv=None):
     global api_key
     if argv is None:
         argv = sys.argv[1:]
-    if api_key == "XXX":
-        sys.stderr.write("You need to register for an Open Calaise API key and configure it in config.py\n")
-        sys.stderr.flush()
-        return 0
     try:
+        if api_key == "XXX":
+            raise ConfigError("You need to register for an Open Calaise API key and configure it in config.py\n")
         try:
             opts, args = getopt.getopt(argv, "h", ["help"])
         except getopt.error as msg:
-            raise Usage(msg)
+            raise UsageError(msg)
         for o, a in opts:
             if (o in ['-h', '--help']):
                 # print help and exit
@@ -60,10 +58,14 @@ def main(argv=None):
             
         opencalaistags(opts, args)
 
-    except Usage, err:
+    except UsageError, err:
         sys.stderr.writelines([str(err.msg)+'\n', "for help use --help\n"])
         sys.stderr.flush()
         return 2
+    except ConfigError, err:
+        sys.stderr.writelines([str(err.msg),'\n'])
+        sys.stderr.flush()
+        return 1
     
 
 if __name__ == '__main__':        

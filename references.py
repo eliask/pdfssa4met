@@ -36,7 +36,7 @@ Examples:
 
 import sys, getopt, re
 from lxml import etree
-from utils import Usage
+from utils import UsageError
 from pdf2xml import pdf2etree
 
 #ref_re = re.compile(".+?(?=\[\d+?\])", re.DOTALL)
@@ -157,7 +157,7 @@ def main(argv=None):
         try:
             opts, args = getopt.getopt(argv, "ht", ["help", "test", "noxml", "highlight"])
         except getopt.error, msg:
-            raise Usage(msg)
+            raise UsageError(msg)
         for o, a in opts:
             if (o in ['-h', '--help']):
                 # print help and exit
@@ -171,7 +171,7 @@ def main(argv=None):
                 return 0
         pdf2refs(opts, args)
 
-    except Usage, err:
+    except UsageError, err:
         sys.stderr.write(err.msg)
         sys.stderr.write("for help use --help")
         sys.stderr.flush()

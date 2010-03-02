@@ -16,7 +16,7 @@ OPTIONS:
 
 import sys, getopt
 from lxml import etree
-from utils import Usage, mean, median
+from utils import UsageError, mean, median
 from pdf2xml import pdf2etree
 
 
@@ -123,7 +123,7 @@ def main(argv=None):
         try:
             opts, args = getopt.getopt(argv, "ht", ["help", "test", "noxml", "highlight", "title", "author"])
         except getopt.error as msg:
-            raise Usage(msg)
+            raise UsageError(msg)
         for o, a in opts:
             if (o in ['-h', '--help']):
                 # print help and exit
@@ -133,7 +133,7 @@ def main(argv=None):
             
         pdf2heads(opts, args)
 
-    except Usage, err:
+    except UsageError, err:
         sys.stderr.writelines([str(err.msg)+'\n', "for help use --help\n"])
         sys.stderr.flush()
         return 2
