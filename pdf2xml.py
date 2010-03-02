@@ -48,8 +48,8 @@ def pdf2etree(argv=None):
         return tree
 
 def pdf2xml(argv=None):
-    tree = pdf2etree(argv)
     try:
+        tree = pdf2etree(argv)
         print etree.tostring(tree, method="xml", pretty_print=True, encoding="UTF-8")
     except TypeError:
         return tree
