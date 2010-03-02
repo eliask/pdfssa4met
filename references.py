@@ -36,7 +36,7 @@ Examples:
 
 import sys, getopt, re
 from lxml import etree
-from utils import UsageError
+from utils import UsageError, ConfigError
 from pdf2xml import pdf2etree
 
 #ref_re = re.compile(".+?(?=\[\d+?\])", re.DOTALL)
