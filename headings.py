@@ -35,7 +35,7 @@ def pdf2heads(opts, args):
         elif (o == '--author'):
             authonly = True
 
-        tree = pdf2etree(args)
+    tree = pdf2etree(args)
 
     # find title
     page = 1
