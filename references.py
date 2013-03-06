@@ -10,12 +10,12 @@ Usage: references.py OPTIONS FILEPATH
 OPTIONS:
 -h, --help     Print help and exit
 -t, --test     Carry out unit tests on RegEx reference tagging
---noxml        Do not tag individual references, and their component parts with XML tags. 
+--noxml        Do not tag individual references, and their component parts with XML tags.
                 Default is to include tagging.
---highlight    Highlight inserted XML tags using a different color. 
+--highlight    Highlight inserted XML tags using a different color.
                 This is useful for a human user looking at the output, but should be omitted when the output is to be used in other programmes.
                 Default is NOT to highlight.
-                
+
 Examples:
 
 >>> split_refs('[1] J. S. Al-Sumait, J. K. Sykulski, and A. K. Al-Othman, "Solution of different types of economic load dispatch problems using a pattern search method," Electric Power Components and Systems, vol. 36, pp. 250-265, 2008. [2] J. S. Al-Sumait, A. K. Al-Othman, and J. K. Sykulski, "Application of pattern search method to power system valve-point economic load dispatch," International Journal of Electrical Power and Energy Systems, vol. 29, pp. 720-730, 2007.')
@@ -59,7 +59,7 @@ def split_refs(txt):
         refs = txt.split('\n')
     return refs
     #- end get_refs()
-                    
+
 def tag_ref(txt, highlight=False):
     """Tag component parts of a reference and return."""
     global url_re, title_re, vol_re, ed_re, pages_re, year_re
@@ -121,11 +121,11 @@ def pdf2refs(opts, args):
             continue
         elif hit_ref:
             refs.append(origtxt)
-            
+
     for ref in split_refs('\n'.join(refs)):
         for url in url_re.findall(ref):
             urls.append(url[0])
-            
+
         pubbits = []
         for pubnode in el.xpath(".//TOKEN[@italic='yes']"):
             pubtxt = etree.tostring(pubnode, method='text', encoding="UTF-8")
@@ -147,7 +147,7 @@ def pdf2refs(opts, args):
         for url in urls:
             sys.stdout.write(url + '\n')
             sys.stdout.flush()
-    # end pdf2refs()      
+    # end pdf2refs()
 
 
 def main(argv=None):
@@ -181,5 +181,5 @@ def main(argv=None):
         sys.stderr.flush()
         return 1
 
-if __name__ == '__main__':        
+if __name__ == '__main__':
     sys.exit(main())

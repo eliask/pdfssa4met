@@ -23,7 +23,7 @@ def opencalaistags(opts, args):
     full_text = ' '.join([etree.tostring(el, method="text", encoding="UTF-8") for el in tree.xpath('//TOKEN')])
     oc = OpenCalaisService("http://api1.opencalais.com/enlighten/rest/", api_key, "PDF SSA4MET Open Calais Tagger")
     ft_graph = oc.rdfFromText(full_text)
-    
+
 #    for t in oc.entitiesFromRdf(ft_graph):
 #        print str(t)
 
@@ -55,7 +55,7 @@ def main(argv=None):
                 sys.stdout.write(__doc__)
                 sys.stdout.flush()
                 return 0
-            
+
         opencalaistags(opts, args)
 
     except UsageError, err:
@@ -66,7 +66,7 @@ def main(argv=None):
         sys.stderr.writelines([str(err.msg),'\n'])
         sys.stderr.flush()
         return 1
-    
 
-if __name__ == '__main__':        
+
+if __name__ == '__main__':
     sys.exit(main())

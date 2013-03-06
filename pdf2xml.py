@@ -31,7 +31,7 @@ def pdf2etree(argv=None):
         pdfpath = args[-1]
     except IndexError:
         raise UsageError("You must provide the name of a valid PDF to analyse")
-    
+
     pdffn = os.path.split(pdfpath)[-1]
     tmpdir = tempfile.mkdtemp(suffix='.d', prefix=pdffn)
     tmppath = os.path.join(tmpdir, "{0}.xml".format(pdffn))

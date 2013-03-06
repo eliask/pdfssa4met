@@ -2,7 +2,7 @@
 PDF Structure and Syntactic Analysis for Metadata Extraction and Tagging
 ===============================================================================
 
-PDFSSA4MET attempts to provide metadata extraction and tagging based on 
+PDFSSA4MET attempts to provide metadata extraction and tagging based on
 structural and syntactic analysis of content in XML.
 
 Dependent on pdftoxml conversion by binary available from:

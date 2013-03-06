@@ -18,7 +18,7 @@ class OpenCalaisService(object):
     namespaces = {'rdf':"http://www.w3.org/1999/02/22-rdf-syntax-ns#"
          ,'c': "http://s.opencalais.com/1/pred/"
          }
-    
+
     def __init__(self, api_url="http://api1.opencalais.com/enlighten/rest/", api_key="xxx", app_name="Semantic PDF Open Calais Tagger"):
         object.__init__(self)
         self.api_url = api_url
@@ -43,7 +43,7 @@ class OpenCalaisService(object):
                 data = f.read()
                 f.close()
                 return data
-        
+
         socket.setdefaulttimeout(oldtimeout)
         return None
 
@@ -60,7 +60,7 @@ class OpenCalaisService(object):
                 ,'</c:processingDirectives>'
                 ,'<c:userDirectives c:allowDistribution="false"'
                 ,'c:allowSearch="false"'
-                ,'c:externalID="{0}"'.format(uuid.uuid4()) 
+                ,'c:externalID="{0}"'.format(uuid.uuid4())
                 ,'c:submitter="{0}">'.format(self.app_name)
                 ,'</c:userDirectives>'
                 ,'<c:externalMetadata></c:externalMetadata>'
@@ -94,4 +94,3 @@ class OpenCalaisService(object):
     def tagsFromText(self, text):
         graph = self.rdfFromText(text)
         return tagsFromRdf(graph)
-        

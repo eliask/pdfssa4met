@@ -48,7 +48,7 @@ def pdf2heads(opts, args):
         if page > 2:
             # probably not going to find it now
             break
-        
+
     # find author
     page = 1
     block = 2
@@ -60,7 +60,7 @@ def pdf2heads(opts, args):
         if block > 4:
             # probably not going to find it now
             break
-    
+
     font_sizes = tree.xpath('//TOKEN/@font-size')
     mean_font_size =  mean(font_sizes)
     median_font_size = median(font_sizes)
@@ -92,7 +92,7 @@ def pdf2heads(opts, args):
                 else:
                     st = "<heading>"
                     et = "</heading>"
-                    
+
                 if highlight:
                     st = "\033[0;32m{0}\033[0m".format(st)
                     et = "\033[0;32m{0}\033[0m".format(et)
@@ -104,7 +104,7 @@ def pdf2heads(opts, args):
             head_txt = ' '.join([etree.tostring(el, method='text', encoding="UTF-8") for el in headers])
             if len(head_txt):
                 head_txts.append("{0}{1}{2}".format(st, head_txt, et))
-                
+
             if block_node == title_node and titleonly:
                 stop = True
                 break
@@ -130,7 +130,7 @@ def main(argv=None):
                 sys.stdout.write(__doc__)
                 sys.stdout.flush()
                 return 0
-            
+
         pdf2heads(opts, args)
 
     except UsageError as err:
@@ -142,5 +142,5 @@ def main(argv=None):
         sys.stderr.flush()
         return 1
 
-if __name__ == '__main__':        
+if __name__ == '__main__':
     sys.exit(main())
