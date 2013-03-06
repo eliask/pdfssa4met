@@ -34,17 +34,21 @@ def pdf2etree(argv=None):
         raise UsageError("You must provide the name of a valid PDF to analyse")
 
     pdffn = os.path.split(pdfpath)[-1]
-    tmpdir = tempfile.mkdtemp(suffix='.d', prefix=pdffn)
+    tmpdir = tempfile.mkdtemp(suffix='.d', prefix='pdf2xml.py')
     tmppath = os.path.join(tmpdir, "{0}.xml".format(pdffn))
     if not os.path.exists(pdf2xmlexe):
         raise ConfigError("pdftoxml exectutable does not exist at specified path: '{0}'\nPlease check config.py".format(pdf2xmlexe))
-    cmdline = "{0} -q -blocks {1} {2}".format(pdf2xmlexe, pdfpath, tmppath)
-    commands.getoutput(cmdline)
+
+    def escape(x):
+        return x.replace('\\', r'\\').replace('"', '\\"')
+    cmdline = '"{0}" -q -blocks "{1}" "{2}"'.format(*map(escape,[pdf2xmlexe, pdfpath, tmppath]))
+    x = commands.getoutput(cmdline)
+    if x: print >>sys.stderr, x
     try:
         with open(tmppath, 'r') as fh:
             tree = etree.parse(fh)
-    except IOError:
-        raise UsageError("Could not convert to XML. Are you sure you provided the name of a valid PDF?")
+    except IOError, e:
+        raise UsageError("Could not convert to XML: {0}. Are you sure you provided the name of a valid PDF? ".format(e))
     else:
         return tree
 
