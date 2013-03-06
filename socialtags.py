@@ -1,3 +1,5 @@
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 """Use a Web-Service to generate Social Tags for the PDF.
 
 Created on Mar 2, 2010

@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """ Utility functions and classes for pdfssa4met.
 
 Created on Mar 1, 2010

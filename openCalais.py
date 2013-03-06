@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 """Module for communicating with OpenCalais Web-Service.
 
 Created on Mar 2, 2010

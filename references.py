@@ -1,5 +1,5 @@
-#!/bin/env python
-# coding=utf-8
+#! /usr/bin/env python
+# -*- coding: utf-8 -*-
 """Extract and tag References from a PDF.
 
 Created on Mar 1, 2010
