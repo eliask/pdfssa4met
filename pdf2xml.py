@@ -12,6 +12,7 @@ OPTIONS:
 """
 
 import sys, commands, getopt, os, tempfile
+import shutil
 from lxml import etree
 from utils import UsageError, ConfigError
 from config import pdf2xmlexe
@@ -33,11 +34,12 @@ def pdf2etree(argv=None):
     except IndexError:
         raise UsageError("You must provide the name of a valid PDF to analyse")
 
+    if not os.path.exists(pdf2xmlexe):
+        raise ConfigError("pdftoxml exectutable does not exist at specified path: '{0}'\nPlease check config.py".format(pdf2xmlexe))
+
     pdffn = os.path.split(pdfpath)[-1]
     tmpdir = tempfile.mkdtemp(suffix='.d', prefix='pdf2xml.py')
     tmppath = os.path.join(tmpdir, "{0}.xml".format(pdffn))
-    if not os.path.exists(pdf2xmlexe):
-        raise ConfigError("pdftoxml exectutable does not exist at specified path: '{0}'\nPlease check config.py".format(pdf2xmlexe))
 
     def escape(x):
         return x.replace('\\', r'\\').replace('"', '\\"')
@@ -51,6 +53,8 @@ def pdf2etree(argv=None):
         raise UsageError("Could not convert to XML: {0}. Are you sure you provided the name of a valid PDF? ".format(e))
     else:
         return tree
+    finally:
+        shutil.rmtree(tmpdir)
 
 def pdf2xml(argv=None):
     try:
